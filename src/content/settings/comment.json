@@ -1,0 +1,16 @@
+{
+    "type": "giscus",
+    "giscus": {
+        "repo": "Ruawd/blog-comments",
+        "repoId": "R_kgDORVKcFQ",
+        "category": "General",
+        "categoryId": "DIC_kwDORVKcFc4C25T1",
+        "mapping": "title",
+        "strict": "0",
+        "reactionsEnabled": "1",
+        "emitMetadata": "1",
+        "inputPosition": "top",
+        "lang": "zh-CN",
+        "loading": "lazy"
+    }
+}

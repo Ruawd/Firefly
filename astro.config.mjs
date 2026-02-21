@@ -1,5 +1,9 @@
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
+import react from "@astrojs/react";
+import markdoc from "@astrojs/markdoc";
+import keystatic from "@keystatic/astro";
+import cloudflare from "@astrojs/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
@@ -36,8 +40,11 @@ import rehypeFigure from "./src/plugins/rehype-figure.mjs";
 export default defineConfig({
 	site: siteConfig.site_url,
 
+	// Cloudflare Workers adapter，用于支持 Keystatic CMS 的 SSR 路由
+	adapter: cloudflare(),
+
 	base: "/",
-	trailingSlash: "always",
+	trailingSlash: "ignore",
 
 	// 图像优化配置
 	image: {
@@ -80,7 +87,7 @@ export default defineConfig({
 				"fa7-brands": ["*"],
 				"fa7-regular": ["*"],
 				"fa7-solid": ["*"],
-				"simple-icons": ["*"], 
+				"simple-icons": ["*"],
 				mdi: ["*"],
 			},
 		}),
@@ -95,16 +102,16 @@ export default defineConfig({
 				// pluginCollapsible 配置 - 从expressiveCodeConfig读取设置，使用i18n文本
 				...(expressiveCodeConfig.pluginCollapsible?.enable === true
 					? [
-							pluginCollapsible({
-								lineThreshold: expressiveCodeConfig.pluginCollapsible.lineThreshold || 15,
-								previewLines: expressiveCodeConfig.pluginCollapsible.previewLines || 8,
-								defaultCollapsed: expressiveCodeConfig.pluginCollapsible.defaultCollapsed ?? true,
-								expandButtonText: i18n(I18nKey.codeCollapsibleShowMore),
-								collapseButtonText: i18n(I18nKey.codeCollapsibleShowLess),
-								expandedAnnouncement: i18n(I18nKey.codeCollapsibleExpanded),
-								collapsedAnnouncement: i18n(I18nKey.codeCollapsibleCollapsed),
-							}),
-						]
+						pluginCollapsible({
+							lineThreshold: expressiveCodeConfig.pluginCollapsible.lineThreshold || 15,
+							previewLines: expressiveCodeConfig.pluginCollapsible.previewLines || 8,
+							defaultCollapsed: expressiveCodeConfig.pluginCollapsible.defaultCollapsed ?? true,
+							expandButtonText: i18n(I18nKey.codeCollapsibleShowMore),
+							collapseButtonText: i18n(I18nKey.codeCollapsibleShowLess),
+							expandedAnnouncement: i18n(I18nKey.codeCollapsibleExpanded),
+							collapsedAnnouncement: i18n(I18nKey.codeCollapsibleCollapsed),
+						}),
+					]
 					: []),
 			],
 			defaultProps: {
@@ -141,6 +148,9 @@ export default defineConfig({
 			},
 		}),
 		svelte(),
+		react(),
+		markdoc(),
+		keystatic(),
 		sitemap({
 			filter: (page) => {
 				// 根据页面开关配置过滤sitemap

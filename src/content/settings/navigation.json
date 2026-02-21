@@ -1,0 +1,62 @@
+{
+    "links": [
+        {
+            "type": "preset",
+            "preset": "Home"
+        },
+        {
+            "type": "preset",
+            "preset": "Archive"
+        },
+        {
+            "type": "custom",
+            "name": "链接",
+            "url": "/links/",
+            "icon": "material-symbols:link",
+            "children": [
+                {
+                    "type": "custom",
+                    "name": "GitHub",
+                    "url": "https://github.com/CuteLeaf/Firefly",
+                    "external": true,
+                    "icon": "fa7-brands:github"
+                },
+                {
+                    "type": "custom",
+                    "name": "Bilibili",
+                    "url": "https://space.bilibili.com/38932988",
+                    "external": true,
+                    "icon": "fa7-brands:bilibili"
+                }
+            ]
+        },
+        {
+            "type": "preset",
+            "preset": "Friends"
+        },
+        {
+            "type": "preset",
+            "preset": "Guestbook"
+        },
+        {
+            "type": "custom",
+            "name": "关于",
+            "url": "/content/",
+            "icon": "material-symbols:info",
+            "children": [
+                {
+                    "type": "preset",
+                    "preset": "Sponsor"
+                },
+                {
+                    "type": "preset",
+                    "preset": "About"
+                },
+                {
+                    "type": "preset",
+                    "preset": "Bangumi"
+                }
+            ]
+        }
+    ]
+}
