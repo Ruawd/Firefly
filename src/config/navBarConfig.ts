@@ -20,24 +20,28 @@ const presetMap: Record<string, LinkPreset> = {
 };
 
 function parseLink(item: any): NavBarLink | LinkPreset | null {
-	if (item.type === "preset") {
-		const preset = presetMap[item.preset];
+	// 支持 Keystatic blocks 格式 (discriminant/value) 和旧格式 (type)
+	const linkType = item.discriminant || item.type;
+	const data = item.value || item;
+
+	if (linkType === "preset") {
+		const preset = presetMap[data.preset];
 		if (preset === undefined) return null;
 
 		// 遵循 siteConfig 的页面开关逻辑
-		if (item.preset === "Guestbook" && !siteConfig.pages.guestbook) return null;
-		if (item.preset === "Sponsor" && !siteConfig.pages.sponsor) return null;
-		if (item.preset === "Bangumi" && !siteConfig.pages.bangumi) return null;
+		if (data.preset === "Guestbook" && !siteConfig.pages.guestbook) return null;
+		if (data.preset === "Sponsor" && !siteConfig.pages.sponsor) return null;
+		if (data.preset === "Bangumi" && !siteConfig.pages.bangumi) return null;
 
 		return preset;
 	}
 	// 自定义链接
 	return {
-		name: item.name,
-		url: item.url,
-		icon: item.icon,
-		external: item.external,
-		children: item.children
+		name: data.name,
+		url: data.url,
+		icon: data.icon,
+		external: data.external,
+		children: data.children
 			?.map((child: any) => parseLink(child))
 			.filter((c: any) => c !== null),
 	} as NavBarLink;
