@@ -223,6 +223,12 @@ export default defineConfig({
 		],
 	},
 	vite: {
+		define: {
+			"process.env.KEYSTATIC_GITHUB_CLIENT_ID": JSON.stringify(process.env.KEYSTATIC_GITHUB_CLIENT_ID ?? ""),
+			"process.env.KEYSTATIC_GITHUB_CLIENT_SECRET": JSON.stringify(process.env.KEYSTATIC_GITHUB_CLIENT_SECRET ?? ""),
+			"process.env.KEYSTATIC_SECRET": JSON.stringify(process.env.KEYSTATIC_SECRET ?? ""),
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV ?? "development"),
+		},
 		plugins: [
 			tailwindcss(),
 		],
